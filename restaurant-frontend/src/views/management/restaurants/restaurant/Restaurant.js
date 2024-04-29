@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import {
   CButton,
@@ -12,6 +13,7 @@ import {
 
 const Restaurant = () => {
 
+  const navigate = useNavigate();
   const [restaurantData, setRestaurantData] = useState([]);
 
   useEffect(()=>{
@@ -27,8 +29,9 @@ const Restaurant = () => {
   },[]);
 
   function handleCreateRestaurant (event){
-
+    navigate('/restaurants/RestaurantForm');
   }
+  
 
   const columns = [
     {
