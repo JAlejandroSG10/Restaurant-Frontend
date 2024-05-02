@@ -2,7 +2,7 @@ import { element, exact } from 'prop-types'
 import React from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
-const Restaurant = React.lazy(()=> import('./views/management/restaurants/restaurant/Restaurant'))
+const Restaurant = React.lazy(()=> import('./views/management/restaurants/restaurant/Restaurant.js'))
 const RestaurantForm = React.lazy(() => import('./views/management/restaurants/restaurant/RestaurantForm'))
 const RestaurantEditForm = React.lazy(()=> import('./views/management/restaurants/restaurant/RestaurantEditForm'))
 
