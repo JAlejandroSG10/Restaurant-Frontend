@@ -31,6 +31,22 @@ const Restaurant = () => {
   function handleCreateRestaurant (event){
     navigate('/restaurants/RestaurantForm');
   }
+
+  function handleEdit(restaurantId){
+    navigate(`/restaurants/RestaurantEditForm`);
+  }
+
+  const handleDisable = async(restaurantId) =>{
+    try{
+      var url = "http://localhost:1337/api/disablerestaurant/"+restaurantId;
+      const response = await Axios.put(url);
+      window.location.reload();
+    }
+    catch(e){
+      console.log(e);
+    }
+  }
+
   
 
   const columns = [
@@ -56,11 +72,7 @@ const Restaurant = () => {
     },
     {
       title: 'Options',
-      render: (text, record) => (
-        <div>
-
-        </div>
-      ),
+      
     }
   ]
   return(

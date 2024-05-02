@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
 import {
     CForm,
@@ -8,8 +9,9 @@ import {
     CButton
 } from '@coreui/react'
 
-const RestaurantForm = () => {
+const RestaurantEditForm = () => {
 
+    const { restaurantId } = useParams();
     const [restaurantData, setRestaurantData] = useState({
         restaurantName: '',
         restaurantNit: '',
@@ -24,11 +26,15 @@ const RestaurantForm = () => {
     const [selectedCity, setSelectedCity] = useState('');
 
     useEffect(() =>{
-        const getRestaurant = async () => {
-            const response = await Axios({url: `http://localhost:1337/api/getrestaurant/${restaurantId}`})
-            const restaurant = response.data.data
-            setRestaurantData(restaurant);
-        }
+        
+        const getRestaurants = async() =>{
+            const response = await Axios({
+              url: 'http://localhost:1337/api/listrestaurant'
+            });
+            const lstRestaurants = Object.keys(response.data).map(i=> response.data[i]);
+            setRestaurantData(lstRestaurants.flat());
+          }
+
         const getDepartments = async () => {
             const response = await Axios({url: 'http://localhost:1337/api/listdepartments'});
             const lstDepartments = Object.keys(response.data).map(i=> response.data[i]);
@@ -66,15 +72,10 @@ const RestaurantForm = () => {
         });
     }
 
-    function handleReturn(event){
-        navigate('/restaurants/restaurant');
-    }
-
     const handleSubmit = async() => {
         try{
-            const response = await Axios.post('http://localhost:1337/api/createrestaurant', restaurantData);
+            const response = await Axios.put(`http://localhost:1337/api/updaterestaurant/${restaurantId}`, restaurantData);
             console.log(response.data);
-            
         }
         catch (e){
             console.log(e);
@@ -115,10 +116,10 @@ const RestaurantForm = () => {
             <CButton color="primary" type="submit">Save</CButton>
         </CCol>
         <CCol xs={12}>
-            <CButton color="secondary" onClick={handleReturn}>Cancel</CButton>
+            <CButton color="primary" type="cancel">Cancel</CButton>
         </CCol>
     </CForm>
     )
 }
 
-export default RestaurantForm
+export default RestaurantEditForm
