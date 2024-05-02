@@ -74,7 +74,7 @@ const RestaurantForm = () => {
         try{
             const response = await Axios.post('http://localhost:1337/api/createrestaurant', restaurantData);
             console.log(response.data);
-            
+            navigate('/restaurants/restaurant');
         }
         catch (e){
             console.log(e);
