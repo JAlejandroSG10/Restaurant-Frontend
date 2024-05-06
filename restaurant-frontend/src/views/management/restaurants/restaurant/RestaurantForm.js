@@ -28,12 +28,12 @@ const RestaurantForm = () => {
     const [selectedCity, setSelectedCity] = useState('');
 
     useEffect(() =>{
-        /*const getRestaurant = async () => {
+        const getRestaurant = async () => {
             const response = await Axios({url: `http://localhost:1337/api/getrestaurant/${restaurantId}`})
             const restaurant = response.data.data
             setRestaurantData(restaurant);
             
-        }*/
+        }
         const getDepartments = async () => {
             const response = await Axios({url: 'http://localhost:1337/api/listdepartments'});
             const lstDepartments = Object.keys(response.data).map(i=> response.data[i]);
@@ -45,7 +45,7 @@ const RestaurantForm = () => {
             const lstCities = Object.keys(response.data).map(i => response.data[i]);
             setCities(lstCities.flat());
         }
-        //getRestaurant();
+        getRestaurant();
         getDepartments();
         if(selectedDepartment !== "")
             getCities(selectedDepartment);
