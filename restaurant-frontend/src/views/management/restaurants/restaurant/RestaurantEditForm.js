@@ -47,6 +47,7 @@ const RestaurantEditForm = () => {
             setCities(lstCities.flat());
         }
         getDepartments();
+        getRestaurants();
         if(selectedDepartment !== "")
             getCities(selectedDepartment);
 
