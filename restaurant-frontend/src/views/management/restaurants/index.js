@@ -1,6 +1,6 @@
-import Restaurant from "./restaurant/Restaurant.js";
+import Restaurant from "./restaurant/Restaurant";
 import RestaurantForm from "./restaurant/RestaurantForm";
-import RestaurantEditForm from "./restaurant/RestaurantEditForm.js";
+import RestaurantEditForm from "./restaurant/RestaurantEditForm";
 
 export {
     Restaurant, 

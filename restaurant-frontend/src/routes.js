@@ -9,10 +9,10 @@ const RestaurantEditForm = React.lazy(()=> import('./views/management/restaurant
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/Restaurants', name: 'Restaurants', exact: true},
-  { path: '/restaurants/Restaurant', name: 'Restaurant', element: Restaurant},
-  { path: '/restaurants/RestaurantForm', name: 'RestaurantForm', element: RestaurantForm},
-  { path: '/restaurants/RestaurantEditForm', name: 'RestaurantEditForm', element: RestaurantEditForm}
+  { path: '/restaurants', name: 'Restaurants', exact: true},
+  { path: '/restaurants/restaurant', name: 'Restaurant', element: Restaurant},
+  { path: '/restaurants/restaurantForm', name: 'RestaurantForm', element: RestaurantForm},
+  { path: '/restaurants/restaurantEditForm', name: 'RestaurantEditForm', element: RestaurantEditForm}
 ]
 
 export default routes
