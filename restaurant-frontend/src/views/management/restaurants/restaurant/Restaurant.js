@@ -13,8 +13,8 @@ import {
 
 const Restaurant = () => {
 
-  const navigate = useNavigate();
   const [restaurantData, setRestaurantData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(()=>{
     const getRestaurants = async() =>{
@@ -29,11 +29,11 @@ const Restaurant = () => {
   },[]);
 
   function handleCreateRestaurant (event){
-    navigate('/restaurants/RestaurantForm');
+    navigate('/restaurants/restaurantForm');
   }
 
-  function handleEdit(restaurantId){
-    navigate(`/restaurants/RestaurantEditForm`);
+  function handleEdit (restaurantId){
+    navigate(`/restaurants/restaurantEditForm/${restaurantId}`);
   }
 
   const handleDisable = async(restaurantId) =>{
@@ -41,64 +41,66 @@ const Restaurant = () => {
       var url = "http://localhost:1337/api/disablerestaurant/"+restaurantId;
       const response = await Axios.put(url);
       window.location.reload();
-    }
-    catch(e){
+    }catch(e){
       console.log(e);
     }
+
   }
 
-  
 
   const columns = [
     {
       title: 'Name',
       dataIndex: 'restaurantName'
-    },
-    {
-      title: 'NIT',
+    },{
+      title:'NIT',
       dataIndex: 'restaurantNit'
-    },
-    {
-      title: 'Address',
+    },{
+      title:'Address',
       dataIndex: 'restaurantAddress'
-    },
-    {
-      title: 'Phone',
-      dataIndex: 'restaurantPhone'
-    },
-    {
-      title: 'City',
-      dataIndex: 'cityId'
-    },
-    {
-      title: 'Options',
-      
+    },{
+      title:'Phone',
+      dataIndex:'restaurantPhone'
+    },{
+      title:'city',
+      dataIndex:'cityId'
+    },{
+      title:'Options',
+      render:(restaurantId) =>(
+        <div>
+          <CButton color='primary' onClick={() => handleEdit(restaurantId)}>Edit</CButton>
+          <CButton color='danger' onClick={() => handleDisable(restaurantId)}>Delete</CButton>
+        </div>
+      ),
     }
   ]
-  return(
+
+  return (
     <div>
       <CButton onClick={handleCreateRestaurant}> New Restaurant </CButton>
       <CTable>
-        <CTable>
-          <CTableHead>
-            <CTableRow>
-              {columns.map((column, index) => (
-                <CTableHeaderCell key = {index}>{column.title}</CTableHeaderCell>
+        <CTableHead>
+          <CTableRow>
+            {columns.map((column, index) => (
+              <CTableHeaderCell key= {index}>{column.title}</CTableHeaderCell>
+            ))}
+          </CTableRow>
+        </CTableHead>
+        <CTableBody>
+          {restaurantData.map((restaurant, index) => (
+            <CTableRow key={index}>
+              {columns.map((column, columnIndex) => (
+                <CTableDataCell key={columnIndex}> 
+                  {column.title === 'Options' ? column.render(restaurant.restaurantId) : restaurant[column.dataIndex]}
+                </CTableDataCell>
               ))}
             </CTableRow>
-          </CTableHead>
-          <CTableBody>
-              {restaurantData.map((restaurant, index) => (
-                <CTableRow key = {index}>
-                  {columns.map((column, columnIndex) => (
-                    <CTableDataCell key={columnIndex}> {restaurant[column.dataIndex]} </CTableDataCell>
-                  ))} 
-                </CTableRow>
-              ))}
-          </CTableBody>
-        </CTable>
+          ))}
+          
+        </CTableBody>
       </CTable>
     </div>
   )
 }
+
 export default Restaurant

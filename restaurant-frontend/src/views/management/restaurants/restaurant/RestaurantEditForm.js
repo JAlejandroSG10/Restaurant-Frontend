@@ -11,6 +11,7 @@ import {
 
 const RestaurantEditForm = () => {
 
+    const navigate = useNavigate();
     const { restaurantId } = useParams();
     const [restaurantData, setRestaurantData] = useState({
         restaurantName: '',
@@ -83,6 +84,10 @@ const RestaurantEditForm = () => {
         }
     }
 
+    function handleCancel(event){
+        navigate('/restaurants/restaurant');
+    }
+
     return(
         <CForm className="row g-3" onSubmit={handleSubmit}>
         <CCol md={12}>
@@ -117,7 +122,7 @@ const RestaurantEditForm = () => {
             <CButton color="primary" type="submit">Save</CButton>
         </CCol>
         <CCol xs={12}>
-            <CButton color="primary" type="cancel">Cancel</CButton>
+            <CButton color="secondary" onClick={handleCancel}>Cancel</CButton>
         </CCol>
     </CForm>
     )
